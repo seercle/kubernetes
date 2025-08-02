@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nextcloud-ingress
+  namespace: nextcloud
+  annotations:
+    nginx.ingress.kubernetes.io/affinity: cookie
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/proxy-body-size: 10g
+    nginx.ingress.kubernetes.io/proxy-buffer-size: 250m
+    nginx.ingress.kubernetes.io/proxy-busy-buffers-size: 500m
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - nextcloud.vivenot.dev
+    secretName: nextcloud-tls
+  rules:
+  - host: nextcloud.vivenot.dev
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nextcloud
+            port:
+              number: 80

@@ -1,0 +1,10 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: reflector
+  namespace: helm-chart
+spec:
+  repo: https://emberstack.github.io/helm-charts
+  chart: reflector
+  targetNamespace: reflector
+  createNamespace: true

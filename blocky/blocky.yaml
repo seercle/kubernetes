@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blocky-deployment
+  namespace: blocky
+spec:
+  selector:
+    matchLabels:
+      app: blocky
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: blocky
+    spec:
+      imagePullSecrets:
+        - name: harbor-registry
+      containers:
+      - image: harbor.vivenot.dev/homelab/blocky:latest
+        imagePullPolicy: Always
+        name: blocky
+        ports:
+        - containerPort: 53
+        - containerPort: 853
+        volumeMounts:
+          - name: tls-volume
+            mountPath: "/etc/blocky"
+            readOnly: true
+      volumes:
+        - name: tls-volume
+          secret:
+            secretName: blocky-tls-secret
+            items:
+            - key: BLOCKY_CERT_FILE
+              path: "cert.pem"
+            - key: BLOCKY_KEY_FILE
+              path: "key.pem"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blocky-service
+  namespace: blocky
+spec:
+  type: LoadBalancer
+  ports:
+  - name: tcp853
+    port: 853
+    targetPort: 853
+    protocol: TCP
+  - name: udp53
+    port: 53
+    targetPort: 53
+    protocol: UDP
+  - name: tcp53
+    port: 53
+    targetPort: 53
+    protocol: TCP
+  selector:
+    app: blocky

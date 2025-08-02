@@ -1,0 +1,18 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: redis
+  namespace: helm-chart
+spec:
+  repo: https://charts.bitnami.com/bitnami
+  chart: redis
+  version: 21.2.13
+  targetNamespace: redis
+  createNamespace: true
+  valuesContent: |-
+    global:
+      defaultStorageClass: longhorn-ssd
+    auth:
+      existingSecret: redis-secret
+      existingSecretPasswordKey: REDIS_PASSWORD
+      

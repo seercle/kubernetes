@@ -1,0 +1,16 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: metallb
+  namespace: helm-chart
+spec:
+  repo: https://metallb.github.io/metallb
+  chart: metallb
+  version: 0.15.2
+  targetNamespace: metallb-system
+  createNamespace: true
+  valuesContent: |-
+    speaker.labels:
+      pod-security.kubernetes.io/enforce: privileged
+      pod-security.kubernetes.io/audit: privileged
+      pod-security.kubernetes.io/warn: privileged

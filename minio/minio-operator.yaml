@@ -1,0 +1,11 @@
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: minio-operator
+  namespace: helm-chart
+spec:
+  repo: https://operator.min.io
+  chart: operator
+  version: 7.1.1
+  targetNamespace: minio-operator
+  createNamespace: true
