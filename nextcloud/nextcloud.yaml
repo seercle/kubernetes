@@ -24,9 +24,8 @@ spec:
         enabled: true
         storageClass: longhorn-hdd
         size: 1Ti
-    internalDatabase.enabled: false
-    
-    # This does not work for some reasons, will default to sqlite
+    internalDatabase:
+      enabled: false
     externalDatabase:
       type: postgresql
       enabled: true
