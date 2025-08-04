@@ -1,0 +1,17 @@
+apiVersion: external-secrets.io/v1
+kind: ClusterSecretStore
+metadata:
+  name: github
+spec:
+  provider:
+    github:
+      appID: 1727063
+      url: "https://github.com/"
+      uploadURL: "https://github.com"
+      auth:
+        privateKey:
+          name: github-app-pem
+          key: key
+          namespace: external-secrets
+      installationID: 79190561
+      organization: ""
