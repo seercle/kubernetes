@@ -1,0 +1,9 @@
+keys:
+  - &root age13d0vgu5aykqa425gsaewmgadzdud240sqhlnalz6hr4z2pnfw3kqgxdm9y
+  - &axel age1d2584z5sc0jkl97zfztuvfguxhmdzrqj323clzne4e533eegpfeqf0dam5
+creation_rules:
+  - path_regex: .*
+    key_groups:
+    - age:
+      - *root
+      - *axel
