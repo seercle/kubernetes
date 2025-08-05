@@ -4,7 +4,7 @@ metadata:
   name: git
   namespace: flux-system
 spec:
-  interval: 5m0s
+  interval: 1m0s
   url: ssh://git@github.com/seercle/kubernetes
   ref:
     branch: main
