@@ -13,5 +13,5 @@ spec:
     global:
       defaultStorageClass: longhorn-ssd
     auth:
-      existingSecret: redis-secret
+      existingSecret: redis-auth
       existingSecretPasswordKey: REDIS_PASSWORD
