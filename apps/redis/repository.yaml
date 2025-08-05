@@ -4,7 +4,7 @@ metadata:
   name: redis
   namespace: redis
 spec:
-  interval: 1m
+  interval: 1h
   url: oci://registry-1.docker.io/bitnamicharts/redis
   ref:
     semver: ">=21.2.14"
