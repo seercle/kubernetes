@@ -15,8 +15,9 @@ spec:
         namespace: longhorn-system
       interval: 10m
   values:
-    defaultSettings.defaultReplicaCount: 1
-    defaultSettings.defaultDataPath: /mnt/sdb1/longhorn
+    defaultSettings:
+      defaultReplicaCount: 1
+      defaultDataPath: /mnt/sdb1/longhorn
     persistence.defaultClassReplicaCount: 1
     defaultBackupStore:
       backupTarget: s3://hyez@us-west-1/
