@@ -19,7 +19,7 @@ spec:
     nextcloud:
       host: nextcloud.vivenot.dev
       existingSecret:
-        secretName: nextcloud-secret
+        secretName: nextcloud-auth
         usernameKey: NEXTCLOUD_ADMIN_USERNAME
         passwordKey: NEXTCLOUD_ADMIN_PASSWORD
     persistence:
@@ -37,7 +37,7 @@ spec:
       enabled: true
       existingSecret:
         enabled: true
-        secretName: nextcloud-secret
+        secretName: nextcloud-database-auth
         usernameKey: NEXTCLOUD_DATABASE_USERNAME
         passwordKey: NEXTCLOUD_DATABASE_PASSWORD
         hostKey: NEXTCLOUD_DATABASE_HOST

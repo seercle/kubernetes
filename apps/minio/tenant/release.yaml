@@ -27,7 +27,7 @@ spec:
           storageClassName: longhorn-hdd
           size: 1Ti
       configSecret:
-        name: minio-tenant-secret
+        name: minio-tenant-auth
         existingSecret: true
 
     ingress:

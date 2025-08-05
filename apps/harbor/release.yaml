@@ -16,21 +16,18 @@ spec:
       interval: 10m
   valuesFrom:
     - kind: Secret
-      name: values
+      name: harbor-values
       valuesKey: values.yaml
   values:
-
     externalURL: "https://harbor.vivenot.dev"
     expose:
       type: ingress
       ingress:
         className: nginx
         annotations:
-          ingress.kubernetes.io/ssl-redirect: "true"
-          ingress.kubernetes.io/proxy-body-size: "0"
           nginx.ingress.kubernetes.io/ssl-redirect: "true"
           nginx.ingress.kubernetes.io/proxy-body-size: "0"
-          cert-manager.io/cluster-issuer: "letsencrypt-prod"
+          cert-manager.io/cluster-issuer: "letsencrypt-staging"
         hosts:
           core: "harbor.vivenot.dev"
     redis:
@@ -38,8 +35,11 @@ spec:
     persistence:
       persistentVolumeClaim:
         registry:
-          storageClass: longhorn-hdd
-        chartmuseum:
-          storageClass: longhorn-hdd
+          storageClass: longhorn-ssd
         jobservice:
-          storageClass: longhorn-hdd
+          jobLog:
+            storageClass: longhorn-ssd
+        redis:
+          storageClass: longhorn-ssd
+        trivy:
+          storageClass: longhorn-ssd
