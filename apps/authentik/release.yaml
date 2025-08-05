@@ -20,31 +20,31 @@ spec:
       - name: AUTHENTIK_POSTGRESQL__HOST
         valueFrom:
           secretKeyRef:
-            name: secret
+            name: authentik
             key: AUTHENTIK_POSTGRESQL__HOST
 
       - name: AUTHENTIK_POSTGRESQL__NAME
         valueFrom:
           secretKeyRef:
-            name: secret
+            name: authentik
             key: AUTHENTIK_POSTGRESQL__NAME
 
       - name: AUTHENTIK_POSTGRESQL__USER
         valueFrom:
           secretKeyRef:
-            name: secret
+            name: authentik
             key: AUTHENTIK_POSTGRESQL__USER
 
       - name: AUTHENTIK_POSTGRESQL__PASSWORD
         valueFrom:
           secretKeyRef:
-            name: secret
+            name: authentik
             key: AUTHENTIK_POSTGRESQL__PASSWORD
 
       - name: AUTHENTIK_REDIS__HOST
         valueFrom:
           secretKeyRef:
-            name: secret
+            name: authentik
             key: AUTHENTIK_REDIS__HOST
 
       - name: AUTHENTIK_REDIS__PASSWORD
@@ -56,7 +56,7 @@ spec:
       - name: AUTHENTIK_SECRET_KEY
         valueFrom:
           secretKeyRef:
-            name: secret
+            name: authentik
             key: AUTHENTIK_SECRET_KEY
     server:
       ingress:
