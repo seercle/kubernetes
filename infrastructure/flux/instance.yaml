@@ -35,9 +35,9 @@ spec:
           - op: add
             path: /spec/template/spec/containers/0/args/-
             value: --requeue-dependency=5s          
-  sync:
-    kind: OCIRepository
-    url: "oci://ghcr.io/my-org/my-fleet-manifests"
-    ref: "latest"
-    path: "clusters/my-cluster"
-    pullSecret: "ghcr-auth"
+  # sync:
+  #   kind: OCIRepository
+  #   url: "oci://ghcr.io/my-org/my-fleet-manifests"
+  #   ref: "latest"
+  #   path: "clusters/my-cluster"
+  #   pullSecret: "ghcr-auth"
