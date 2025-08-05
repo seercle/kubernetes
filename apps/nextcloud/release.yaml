@@ -1,0 +1,45 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nextcloud
+  namespace: nextcloud
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: nextcloud
+      version: 7.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: nextcloud
+        namespace: nextcloud
+      interval: 10m
+  values:
+
+    nextcloud:
+      host: nextcloud.vivenot.dev
+      existingSecret:
+        secretName: nextcloud-secret
+        usernameKey: NEXTCLOUD_ADMIN_USERNAME
+        passwordKey: NEXTCLOUD_ADMIN_PASSWORD
+    persistence:
+      enabled: true
+      storageClass: longhorn-ssd
+      size: 10Gi
+      nextcloudData:
+        enabled: true
+        storageClass: longhorn-hdd
+        size: 1Ti
+    internalDatabase:
+      enabled: false
+    externalDatabase:
+      type: postgresql
+      enabled: true
+      existingSecret:
+        enabled: true
+        secretName: nextcloud-secret
+        usernameKey: NEXTCLOUD_DATABASE_USERNAME
+        passwordKey: NEXTCLOUD_DATABASE_PASSWORD
+        hostKey: NEXTCLOUD_DATABASE_HOST
+        databaseKey: NEXTCLOUD_DATABASE_NAME
+
