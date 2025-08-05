@@ -13,7 +13,7 @@ spec:
     global:
       postgresql:
         auth:
-          existingSecret: postgresql-secret
+          existingSecret: postgresql-auth
           secretKeys:
             adminPasswordKey: "ADMIN_PASSWORD"
     primary:
