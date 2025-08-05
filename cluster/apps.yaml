@@ -12,6 +12,7 @@ spec:
     kind: GitRepository
     name: git
   path: ./apps
+  
   prune: true
   wait: true
   timeout: 1m0s
