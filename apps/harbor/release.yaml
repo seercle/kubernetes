@@ -15,7 +15,7 @@ spec:
         namespace: harbor
       interval: 10m
   valuesFrom:
-    kind: Secret
+    - kind: Secret
     name: values
     valuesKey: values.yaml
   values:
