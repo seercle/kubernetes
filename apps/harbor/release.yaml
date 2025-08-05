@@ -16,8 +16,8 @@ spec:
       interval: 10m
   valuesFrom:
     - kind: Secret
-    name: values
-    valuesKey: values.yaml
+      name: values
+      valuesKey: values.yaml
   values:
 
     externalURL: "https://harbor.vivenot.dev"
