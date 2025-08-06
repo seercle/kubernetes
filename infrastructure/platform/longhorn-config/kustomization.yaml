@@ -3,5 +3,4 @@ kind: Kustomization
 namespace: longhorn-system
 resources:
   - ingress.yaml
-  - storage-class.yaml
   - backup-job.yaml

@@ -45,40 +45,40 @@ Below is the list of ports used by essential services on your machine:
     --repository=kubernetes \
     --branch=main \
     --path=./cluster
- 
+
 3. Enter the kustomization directory:
     ```bash
     cd infrastructure/kustomization
     ```
- 
+
 3. Create the sops-age secret:
     ```bash
     sops -d secret.yaml | k apply -f -
     ```
- 
 
-5. Deploy infrastructure-pre:
+
+5. Deploy infrastructure-core:
     ```bash
-    kubectl apply -f ./infra-pre.yaml
+    kubectl apply -f ./infra-core.yaml
     ```
- 
-6. Deploy infrastructure-post:
+
+6. Deploy infrastructure-platform:
     ```bash
-    kubectl apply -f ./infra-post.yaml
+    kubectl apply -f ./infra-platform.yaml
     ```
 
 7. At this point, you should log into longhorn and setup the disks, with the labels `ssd` and `hdd`
 
-8. Deploy applications-pre:
+8. Deploy applications-database:
     ```bash
-    kubectl apply -f ./apps-pre.yaml
+    kubectl apply -f ./apps-database.yaml
     ```
 
 9. At this point, you should log into the `postgresql` and `redis` databases and create the users that will be used in `authentik`, `harbor`, `nextcloud`, ...
 
-10. Deploy applications-post:
+10. Deploy applications-services:
     ```bash
-    kubectl apply -f ./apps-post.yaml
+    kubectl apply -f ./apps-services.yaml
     ```
 
 
@@ -88,5 +88,5 @@ Below is the list of ports used by essential services on your machine:
 - Use the provided .sops.yaml configuration to manage secrets securely.
 - If you don't want to boostrap, you can:
   - Apply `instance.yaml` in `cluster`
-  - Create the secret `git-auth` in `cluster/git` with `sops -d secret.yaml | k apply -f -` 
+  - Create the secret `git-auth` in `cluster/git` with `sops -d secret.yaml | k apply -f -`
   - Apply `git.yaml` in `cluster/git`

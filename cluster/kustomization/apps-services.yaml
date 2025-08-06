@@ -2,15 +2,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: infra-pre
+  name: apps-services
 spec:
-  interval: 5m
-  timeout: 1m
+  interval: 5m0s
+  timeout: 1m0s
+  dependsOn:
+    - name: apps-database
   sourceRef:
     kind: GitRepository
     name: git
     namespace: flux-system
-  path: ./infrastructure/pre
+  path: ./apps/services
   prune: true
   wait: true
   decryption:

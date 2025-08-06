@@ -2,21 +2,20 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: apps-pre
+  name: infra-platform
 spec:
-  interval: 5m0s
-  timeout: 1m0s
-  dependsOn:
-    - name: infra-post
+  interval: 5m
+  timeout: 1m
   sourceRef:
     kind: GitRepository
     name: git
     namespace: flux-system
-  path: ./apps/pre
+  dependsOn:
+    - name: infra-core
+  path: ./infrastructure/platform
   prune: true
   wait: true
   decryption:
     provider: sops
     secretRef:
       name: sops-age
-  
