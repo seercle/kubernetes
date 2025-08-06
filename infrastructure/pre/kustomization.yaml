@@ -3,6 +3,4 @@ kind: Kustomization
 resources:
   - metallb
   - cert-manager
-  - ingress-nginx #depend on cert-manager & metallb
   - longhorn
-  - reflector
