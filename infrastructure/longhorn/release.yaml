@@ -21,5 +21,5 @@ spec:
     persistence.defaultClassReplicaCount: 1
     defaultBackupStore:
       backupTarget: s3://hyez@us-west-1/
-      backupTargetCredentialSecret: longhorn-system
+      backupTargetCredentialSecret: longhorn-backup-auth
       pollInterval: 180
