@@ -8,9 +8,9 @@ The repository is structured as follows:
 
 - **`apps/`**: Contains application-specific configurations, including namespaces, Helm releases, and other Kubernetes manifests.
 - **`infrastructure/`**: Contains infrastructure-related configurations, such as storage (Longhorn), ingress (NGINX), and networking (MetalLB).
-- **`secrets/`**: Contains encrypted secrets managed using [SOPS](https://github.com/mozilla/sops).
 - **`cluster/`**: Contains FluxCD configurations for managing the cluster's state.
 - **`other/`**: Contains unused manifests that I keep in case I need them one day
+- **`.sops.yaml`**: Contains the public key used to encrypt the secrets
 
 ## Key Features
 
@@ -45,27 +45,48 @@ Below is the list of ports used by essential services on your machine:
     --repository=kubernetes \
     --branch=main \
     --path=./cluster
+ 
+3. Enter the kustomization directory:
+    ```bash
+    cd infrastructure/kustomization
+    ```
+ 
+3. Create the sops-age secret:
+    ```bash
+    sops -d secret.yaml | k apply -f -
+    ```
+ 
+
+5. Deploy infrastructure-pre:
+    ```bash
+    kubectl apply -f ./infra-pre.yaml
+    ```
+ 
+6. Deploy infrastructure-post:
+    ```bash
+    kubectl apply -f ./infra-post.yaml
     ```
 
-3. Deploy secrets:
+7. At this point, you should log into longhorn and setup the disks, with the labels `ssd` and `hdd`
+
+8. Deploy applications-pre:
     ```bash
-    kubectl apply -k ./secrets
+    kubectl apply -f ./apps-pre.yaml
     ```
 
-4. Deploy infrastructure:
+9. At this point, you should log into the `postgresql` and `redis` databases and create the users that will be used in `authentik`, `harbor`, `nextcloud`, ...
+
+10. Deploy applications-post:
     ```bash
-    kubectl apply -k ./infrastructure
+    kubectl apply -f ./apps-post.yaml
     ```
 
-5. Deploy applications:
-    ```bash
-    kubectl apply -k ./apps
-    ```
 
 ## Notes
 - Ensure that the required ports are open on your firewall or router.
 - Update the DNS records for your domain to point to the cluster's ingress IP.
 - Use the provided .sops.yaml configuration to manage secrets securely.
-
-## License
-This repository is licensed under the MIT License. See the LICENSE file for details.
+- If you don't want to boostrap, you can:
+  - Apply `instance.yaml` in `cluster`
+  - Create the secret `git-auth` in `cluster/git` with `sops -d secret.yaml | k apply -f -` 
+  - Apply `git.yaml` in `cluster/git`

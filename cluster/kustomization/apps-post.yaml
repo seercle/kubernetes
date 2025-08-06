@@ -2,17 +2,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: apps
+  name: apps-post
 spec:
   interval: 5m0s
   timeout: 1m0s
   dependsOn:
-    - name: infra-post
+    - name: apps-pre
   sourceRef:
     kind: GitRepository
     name: git
     namespace: flux-system
-  path: ./apps
+  path: ./apps/post
   prune: true
   wait: true
   decryption:
