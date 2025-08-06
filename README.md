@@ -95,6 +95,7 @@ The following installation was tested on commit `ef2bd6cf9f6b700c64c262ae64694ff
   sops -d secret.yaml | k apply -f -
   ```
   - Apply `git.yaml` in `cluster/git`
+- If a persistent volume gets `Unbound` and you want to re-use it, delete the `claimRef` inside the PV and the newly deployed pods will use it.
 
 ## Tips for some services
 
@@ -108,5 +109,8 @@ To retrieve the password:
 ```bash
 kubectl get secret admin-user -n kubernetes-dashboard -o jsonpath="{.data.token}" | base64 -d
 ```
-
 Beware that the browser loves to cache the login page and make it seem like the password is wrong !
+
+- ### Nextcloud
+
+Beware of Nextcloud. If it goes down, it will never go back up sometimes. I don't know why ! Probably when the Postgresql database has not changed but Nexcloud persistent volumes where recreated. I don't know !
