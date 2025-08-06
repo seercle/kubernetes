@@ -15,6 +15,9 @@ spec:
         namespace: nextcloud
       interval: 10m
   values:
+    startupProbe:
+      enabled: true
+      failureThreshold: 60
     nextcloud:
       host: nextcloud.vivenot.dev
       existingSecret:
