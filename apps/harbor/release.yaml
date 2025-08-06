@@ -14,11 +14,20 @@ spec:
         name: harbor
         namespace: harbor
       interval: 10m
-  valuesFrom:
-    - kind: Secret
-      name: harbor-values
-      valuesKey: values.yaml
   values:
+    existingSecretAdminPassword: harbor-auth
+    existingSecretAdminPasswordKey: harborAdminPassword
+    database:
+      type: external
+      external:
+        host: postgresql.postgresql.svc.cluster.local
+        port: 5432
+        username: harbor
+        coreDatabase: registry
+        clairDatabase: clair
+        notaryServerDatabase: notary_server
+        notarySignerDatabase: notary_signer
+        existingSecret: harbor-database-auth
     externalURL: "https://harbor.vivenot.dev"
     expose:
       type: ingress
