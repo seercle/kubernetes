@@ -4,8 +4,7 @@ metadata:
   name: redis
   namespace: redis
 spec:
-  interval: 1m
-  timeout: 1m
+  interval: 10m
   chartRef:
     kind: OCIRepository
     name: redis

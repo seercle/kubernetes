@@ -8,8 +8,7 @@ spec:
     kind: OCIRepository
     name: postgresql
     namespace: postgresql
-  interval: 1m
-  timeout: 1m
+  interval: 10m
   values:
     global:
       postgresql:
