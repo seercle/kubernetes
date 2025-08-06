@@ -32,6 +32,10 @@ Below is the list of ports used by essential services on your machine:
 
 ## Getting Started
 
+The following installation was tested on commit `ef2bd6cf9f6b700c64c262ae64694ff358841d45`.
+
+**It might not work for future commits.**
+
 1. Clone this repository:
    ```bash
    git clone git@github.com:seercle/kubernetes.git
@@ -55,7 +59,6 @@ Below is the list of ports used by essential services on your machine:
     ```bash
     sops -d secret.yaml | k apply -f -
     ```
-
 
 5. Deploy infrastructure-core:
     ```bash
@@ -81,12 +84,29 @@ Below is the list of ports used by essential services on your machine:
     kubectl apply -f ./apps-services.yaml
     ```
 
-
 ## Notes
 - Ensure that the required ports are open on your firewall or router.
 - Update the DNS records for your domain to point to the cluster's ingress IP.
 - Use the provided .sops.yaml configuration to manage secrets securely.
-- If you don't want to boostrap, you can:
+- If you don't want to boostrap flux, you can:
   - Apply `instance.yaml` in `cluster`
-  - Create the secret `git-auth` in `cluster/git` with `sops -d secret.yaml | k apply -f -`
+  - Create the secret `git-auth` in `cluster/git`:
+  ```bash
+  sops -d secret.yaml | k apply -f -
+  ```
   - Apply `git.yaml` in `cluster/git`
+
+## Tips for some services
+
+- ### Vaultwarden
+
+Head to `https://vaultwarden.vivenot.dev/admin` and enter the admin key to create a user
+
+- ### Dashboard
+
+To retrieve the password:
+```bash
+kubectl get secret admin-user -n kubernetes-dashboard -o jsonpath="{.data.token}" | base64 -d
+```
+
+Beware that the browser loves to cache the login page and make it seem like the password is wrong !
