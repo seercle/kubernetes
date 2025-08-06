@@ -19,10 +19,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - longhorn.vivenot.dev
+    - longhorn.seercle.com
     secretName: longhorn-tls
   rules:
-  - host: longhorn.vivenot.dev
+  - host: longhorn.seercle.com
     http:
       paths:
       - pathType: Prefix

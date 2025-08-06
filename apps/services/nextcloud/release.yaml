@@ -20,7 +20,7 @@ spec:
     #livenessProbe:
     #  initialDelaySeconds: 240
     nextcloud:
-      host: nextcloud.vivenot.dev
+      host: nextcloud.seercle.com
       existingSecret:
         secretName: nextcloud-auth
         usernameKey: NEXTCLOUD_ADMIN_USERNAME

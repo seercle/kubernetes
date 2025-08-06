@@ -10,10 +10,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - dashboard.vivenot.dev
+    - dashboard.seercle.com
     secretName: dashboard-tls
   rules:
-  - host: dashboard.vivenot.dev
+  - host: dashboard.seercle.com
     http:
       paths:
       - path: /

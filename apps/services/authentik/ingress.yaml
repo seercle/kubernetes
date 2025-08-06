@@ -9,10 +9,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - authentik.vivenot.dev
+    - authentik.seercle.com
     secretName: authentik-tls
   rules:
-  - host: authentik.vivenot.dev
+  - host: authentik.seercle.com
     http:
       paths:
       - path: /

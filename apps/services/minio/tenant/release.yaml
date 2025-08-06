@@ -42,8 +42,8 @@ spec:
         tls: 
         - secretName: minio-api-tls
           hosts:
-          - api.minio.vivenot.dev
-        host: api.minio.vivenot.dev
+          - api.minio.seercle.com
+        host: api.minio.seercle.com
         path: /
         pathType: Prefix
 
@@ -55,8 +55,8 @@ spec:
         tls:
         - secretName: minio-console-tls
           hosts:
-            - minio.vivenot.dev
-        host: minio.vivenot.dev
+            - minio.seercle.com
+        host: minio.seercle.com
         path: /
         pathType: Prefix
         

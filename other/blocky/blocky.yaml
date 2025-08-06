@@ -16,7 +16,7 @@ spec:
       imagePullSecrets:
         - name: harbor-registry
       containers:
-      - image: harbor.vivenot.dev/homelab/blocky:latest
+      - image: harbor.seercle.com/homelab/blocky:latest
         imagePullPolicy: Always
         name: blocky
         ports:

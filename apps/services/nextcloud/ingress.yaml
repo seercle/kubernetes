@@ -13,10 +13,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - nextcloud.vivenot.dev
+    - nextcloud.seercle.com
     secretName: nextcloud-tls
   rules:
-  - host: nextcloud.vivenot.dev
+  - host: nextcloud.seercle.com
     http:
       paths:
       - path: /

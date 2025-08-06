@@ -5,12 +5,12 @@ if [ $? -ne 0 ]; then
     echo "Docker build failed"
     exit 1
 fi
-docker tag blocky:latest harbor.vivenot.dev/homelab/blocky:latest
+docker tag blocky:latest harbor.seercle.com/homelab/blocky:latest
 if [ $? -ne 0 ]; then
     echo "Docker tag failed"
     exit 1
 fi 
-docker push harbor.vivenot.dev/homelab/blocky:latest
+docker push harbor.seercle.com/homelab/blocky:latest
 if [ $? -ne 0 ]; then
     echo "Docker push failed"
     exit 1
@@ -22,7 +22,7 @@ if [ $? -ne 0 ]; then
     echo "Docker image cleanup failed"
     exit 1
 fi
-docker rmi harbor.vivenot.dev/homelab/blocky:latest
+docker rmi harbor.seercle.com/homelab/blocky:latest
 if [ $? -ne 0 ]; then
     echo "Docker image cleanup failed"
     exit 1

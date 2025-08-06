@@ -28,7 +28,7 @@ spec:
         notaryServerDatabase: notary_server
         notarySignerDatabase: notary_signer
         existingSecret: harbor-database-auth
-    externalURL: "https://harbor.vivenot.dev"
+    externalURL: "https://harbor.seercle.com"
     expose:
       type: ingress
       ingress:
@@ -38,7 +38,7 @@ spec:
           nginx.ingress.kubernetes.io/proxy-body-size: "0"
           cert-manager.io/cluster-issuer: "letsencrypt-prod"
         hosts:
-          core: "harbor.vivenot.dev"
+          core: "harbor.seercle.com"
     redis:
       enabled: true
     persistence:

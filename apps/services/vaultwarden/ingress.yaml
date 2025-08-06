@@ -9,10 +9,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - vaultwarden.vivenot.dev
+    - vaultwarden.seercle.com
     secretName: vaultwarden-tls
   rules:
-  - host: vaultwarden.vivenot.dev
+  - host: vaultwarden.seercle.com
     http:
       paths:
       - path: /
