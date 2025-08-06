@@ -15,10 +15,10 @@ spec:
         namespace: nextcloud
       interval: 10m
   values:
-    readinessProbe:
-      initialDelaySeconds: 240
-    livenessProbe:
-      initialDelaySeconds: 240
+    #readinessProbe:
+    #  initialDelaySeconds: 240
+    #livenessProbe:
+    #  initialDelaySeconds: 240
     nextcloud:
       host: nextcloud.vivenot.dev
       existingSecret:

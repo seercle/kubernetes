@@ -8,5 +8,5 @@ resources:
   - dashboard
   - harbor # depends on postgresql
   - minio
-  #- nextcloud # depends on postgresql
+  - nextcloud # depends on postgresql
   - vaultwarden
