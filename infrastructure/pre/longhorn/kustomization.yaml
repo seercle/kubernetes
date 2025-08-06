@@ -8,4 +8,3 @@ resources:
   - release.yaml
   - ingress.yaml
   - storage-class.yaml
-  - backup-job.yaml
