@@ -17,7 +17,8 @@ spec:
   values:
     startupProbe:
       enabled: true
-      initialDelaySeconds: 240
+      failureThreshold: 60
+      periodSeconds: 10
     nextcloud:
       host: nextcloud.vivenot.dev
       existingSecret:
