@@ -20,8 +20,8 @@ spec:
         ports:
         - containerPort: 80
         env:
-        - name: SIGNUPS_ALLOWED
-          value: "false"
+        #- name: SIGNUPS_ALLOWED
+        #  value: "false"
         - name: ADMIN_TOKEN
           valueFrom:
             secretKeyRef:
