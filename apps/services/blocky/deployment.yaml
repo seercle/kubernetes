@@ -14,7 +14,7 @@ spec:
         app: blocky
     spec:
       imagePullSecrets:
-        - name: harbor-registry
+        - name: harbor-registry-auth
       containers:
       - image: harbor.seercle.com/homelab/blocky:latest
         imagePullPolicy: Always
