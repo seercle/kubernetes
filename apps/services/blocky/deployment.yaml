@@ -18,8 +18,8 @@ spec:
         name: blocky
         volumeMounts:
           - name: app-config
-            mountPath: /app/config.yaml
-            subPath: config.yaml
+            mountPath: /app/config.yml
+            subPath: config.yml
             readOnly: true
           - name: tls-volume
             mountPath: /etc/blocky/tls

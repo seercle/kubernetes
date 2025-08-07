@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: blocky
 data:
-  config.yaml: |
+  config.yml: |
     certFile: /etc/blocky/tls/cert.pem
     keyFile: /etc/blocky/tls/key.pem
     upstream:
