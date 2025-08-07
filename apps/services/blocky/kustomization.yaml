@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: blocky
 resources:
   - namespace.yaml
+  - configmap.yaml
   - secret.yaml
   - deployment.yaml
   - service.yaml
