@@ -17,21 +17,23 @@ spec:
       - image: spx01/blocky:latest
         name: blocky
         volumeMounts:
-          - name: app-volume
-            mountPath: "/app"
+          - name: app-config
+            mountPath: /app/config.yaml
+            subPath: config.yaml
+            readOnly: true
+          - name: tls-volume
+            mountPath: /etc/blocky/tls
+            readOnly: true
       volumes:
-        - name: app-volume
-          projected:
-            sources:
-            - configMap:
-                name: blocky
-                items:
-                  - key: config.yaml
-                    path: config.yaml
-            - secret:
-                name: blocky-tls
-                items:
-                - key: BLOCKY_CERT_FILE
-                  path: cert.pem
-                - key: BLOCKY_KEY_FILE
-                  path: key.pem
+        - name: app-config
+          configMap:
+            name: blocky
+        - name: tls-volume
+          secret:
+            secretName: blocky-tls
+            items:
+            - key: BLOCKY_CERT_FILE
+              path: cert.pem
+            - key: BLOCKY_KEY_FILE
+              path: key.pem
+                

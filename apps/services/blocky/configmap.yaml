@@ -4,8 +4,8 @@ metadata:
   name: blocky
 data:
   config.yaml: |
-    certFile: ./cert.pem
-    keyFile: ./key.pem
+    certFile: /etc/blocky/tls/cert.pem
+    keyFile: /etc/blocky/tls/key.pem
     upstream:
       groups:
         default:
