@@ -19,7 +19,6 @@ spec:
         volumeMounts:
           - name: app-volume
             mountPath: "/app"
-            readOnly: true
       volumes:
         - name: app-volume
           projected:
