@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: blocky
-stringData:
+data:
   config.yaml: |
     certFile: ./cert.pem
     keyFile: ./key.pem
