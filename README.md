@@ -114,7 +114,7 @@ Beware that the browser loves to cache the login page and make it seem like the 
 
 - ### Nextcloud
 
-Beware of Nextcloud. If it goes down, it will never go back up sometimes. I don't know why ! Probably when the Postgresql database has not changed but Nexcloud persistent volumes where recreated. I don't know !
+Beware of Nextcloud. If it goes down, it will never go back up sometimes. I don't know why ! Probably when the Postgresql database has not changed but Nexcloud's persistent volume was recreated. I don't know !
 
 - ### Harbor
 
