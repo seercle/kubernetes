@@ -6,6 +6,9 @@ data:
   config.yml: |
     certFile: /etc/blocky/tls/cert.pem
     keyFile: /etc/blocky/tls/key.pem
+    ports:
+      dns: 53
+      tls: 853
     upstreams:
       groups:
         default:
