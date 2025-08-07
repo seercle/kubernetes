@@ -19,6 +19,7 @@ The repository is structured as follows:
 - **Ingress Management**: Ingress-NGINX is used for routing external traffic to services.
 - **TLS Certificates**: Cert-Manager is used to manage TLS certificates via Let's Encrypt.
 - **Service Discovery**: MetalLB provides load balancer functionality for bare-metal Kubernetes clusters.
+- **DNS Proxy**: Blocky proxies all DNS requests to Cloudflare, while blocking certain sites
 
 ## Services and Ports
 
@@ -114,3 +115,11 @@ Beware that the browser loves to cache the login page and make it seem like the 
 - ### Nextcloud
 
 Beware of Nextcloud. If it goes down, it will never go back up sometimes. I don't know why ! Probably when the Postgresql database has not changed but Nexcloud persistent volumes where recreated. I don't know !
+
+- ### Harbor
+
+Make sure that the harbor-registry-auth correctly match Harbor's password.
+
+- ### Blocky
+
+The TLS certificate has an expiration date. Don't forget to change it from time to time.
