@@ -4,10 +4,11 @@ ports:
   dns: 53
   tls: 853
 upstream:
-  default:
-    - https://one.one.one.one/dns-query
+  groups:
+    default:
+      - https://one.one.one.one/dns-query
 blocking:
-  blackLists:
+  denylists:
     ads:
       - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/wildcard/pro.plus.txt
     adult:

@@ -13,25 +13,26 @@ spec:
       labels:
         app: blocky
     spec:
-      imagePullSecrets:
-        - name: harbor-registry-auth
       containers:
-      - image: harbor.seercle.com/homelab/blocky:latest
-        imagePullPolicy: Always
+      - image: spx01/blocky:latest
         name: blocky
-        ports:
-        - containerPort: 53
-        - containerPort: 853
         volumeMounts:
-          - name: tls-volume
-            mountPath: "/etc/blocky"
+          - name: app-volume
+            mountPath: "/app"
             readOnly: true
       volumes:
-        - name: tls-volume
-          secret:
-            secretName: blocky-tls
-            items:
-            - key: BLOCKY_CERT_FILE
-              path: "cert.pem"
-            - key: BLOCKY_KEY_FILE
-              path: "key.pem"
+        - name: app-volume
+          projected:
+            sources:
+            - configMap:
+                name: blocky
+                items:
+                  - key: config.yaml
+                    path: config.yaml
+            - secret:
+                name: blocky-tls
+                items:
+                - key: BLOCKY_CERT_FILE
+                  path: cert.pem
+                - key: BLOCKY_KEY_FILE
+                  path: key.pem
