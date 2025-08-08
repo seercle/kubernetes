@@ -43,19 +43,19 @@ spec:
       webservice:
         ingress:
           tls:
-            secretName: RELEASE-gitlab-tls
+            secretName: gitlab-tls
       kas:
         ingress:
           tls:
-            secretName: RELEASE-kas-tls
+            secretName: kas-tls
     registry:
       ingress:
         tls:
-          secretName: RELEASE-registry-tls
+          secretName: registry-tls
     minio:
       ingress:
         tls:
-          secretName: RELEASE-minio-tls
+          secretName: minio-tls
     installCertmanager: false
     nginx-ingress:
       enabled: false

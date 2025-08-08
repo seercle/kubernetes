@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capacitor
+  namespace: capacitor
+spec:
+  selector:
+    matchLabels:
+      app: capacitor
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: capacitor
+    spec:
+      imagePullSecrets:
+        - name: harbor-registry-auth
+      containers:
+        - image: harbor.seercle.com/homelab/capacitor:latest
+          name: capacitor

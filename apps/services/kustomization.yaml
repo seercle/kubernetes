@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - authentik
   - blocky
+  - capacitor
   - dashboard
   - gitlab
   - harbor
