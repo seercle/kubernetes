@@ -2,6 +2,8 @@
 curl -L "https://github.com/gimlet-io/capacitor/releases/download/capacitor-next/next-$(uname)-$(uname -m)" -o next
 chmod +x next
 
+sops --decrypt config > kubeconfig
+
 docker build -t harbor.seercle.com/homelab/capacitor:latest .
 
 docker login harbor.seercle.com
