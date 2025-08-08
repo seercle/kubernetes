@@ -20,4 +20,3 @@ spec:
         type: LoadBalancer
       config:
         strict-validate-path-type: false
-    22: "gitlab/gitlab-gitlab-shell:22"
