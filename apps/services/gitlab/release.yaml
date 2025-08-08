@@ -1,0 +1,61 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gitlab
+  namespace: gitlab
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: gitlab
+      version: 9.2.1
+      sourceRef:
+        kind: HelmRepository
+        name: gitlab
+        namespace: gitlab
+      interval: 10m
+  values:
+    global:
+      hosts:
+        domain: gitlab.seercle.com
+      edition: ce
+      ingress:
+        configureCertmanager: false
+        provider: nginx
+        class: nginx
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+      psql:
+        host: postgresql.postgresql.svc.cluster.local
+        port: 5432
+        database: gitlab
+        username: gitlab
+        password:
+          secret: gitlab-postgresql-auth
+          key: password
+    postgresql:
+      install: false
+    gitlab:
+      migrations:
+        initialRootPassword:
+          secret: gitlab-auth
+          key: password
+      webservice:
+        ingress:
+          tls:
+            secretName: RELEASE-gitlab-tls
+      kas:
+        ingress:
+          tls:
+            secretName: RELEASE-kas-tls
+    registry:
+      ingress:
+        tls:
+          secretName: RELEASE-registry-tls
+    minio:
+      ingress:
+        tls:
+          secretName: RELEASE-minio-tls
+    installCertmanager: false
+    nginx-ingress:
+      enabled: false
