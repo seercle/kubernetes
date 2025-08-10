@@ -46,6 +46,7 @@ spec:
       server:
         persistentVolume:
           storageClass: longhorn-ssd
+    gitlab:
       gitaly:
         persistence:
           storageClass: longhorn-ssd
