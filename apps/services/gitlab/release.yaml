@@ -16,6 +16,9 @@ spec:
       interval: 10m
   values:
     global:
+      appConfig:
+        initialDefaults:
+          signupEnabled: false
       initialRootPassword:
         secret: gitlab-auth
         key: password
