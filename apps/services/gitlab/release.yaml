@@ -17,7 +17,7 @@ spec:
   values:
     global:
       hosts:
-        domain: gitlab.seercle.com
+        domain: seercle.com
       edition: ce
       shell:
         port: 44
