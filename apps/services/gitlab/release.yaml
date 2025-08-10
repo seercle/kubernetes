@@ -28,16 +28,17 @@ spec:
         class: nginx
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-prod
-      psql:
-        host: postgresql.postgresql.svc.cluster.local
-        port: 5432
-        database: gitlab
-        username: gitlab
-        password:
-          secret: gitlab-postgresql-auth
-          key: password
+      #psql:
+      #  host: postgresql.postgresql.svc.cluster.local
+      #  port: 5432
+      #  database: gitlab
+      #  username: gitlab
+      #  password:
+      #    secret: gitlab-postgresql-auth
+      #    key: password
     postgresql:
-      install: false
+      #install: false
+      install: true
     prometheus:
       server:
         persistentVolume:
