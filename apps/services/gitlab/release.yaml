@@ -27,7 +27,7 @@ spec:
         configureCertmanager: false
         class: nginx
         annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-staging
+          cert-manager.io/cluster-issuer: letsencrypt-prod
       psql:
         host: postgresql.postgresql.svc.cluster.local
         port: 5432
