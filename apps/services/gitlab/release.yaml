@@ -19,6 +19,8 @@ spec:
       hosts:
         domain: gitlab.seercle.com
       edition: ce
+      shell:
+        port: 44
       ingress:
         configureCertmanager: false
         provider: nginx
