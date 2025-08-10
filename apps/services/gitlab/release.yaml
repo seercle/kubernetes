@@ -16,6 +16,9 @@ spec:
       interval: 10m
   values:
     global:
+      initialRootPassword:
+        secret: gitlab-auth
+        key: password
       hosts:
         domain: seercle.com
       edition: ce
@@ -43,11 +46,6 @@ spec:
       server:
         persistentVolume:
           storageClass: longhorn-ssd
-    gitlab:
-      migrations:
-        initialRootPassword:
-          secret: gitlab-auth
-          key: password
       gitaly:
         persistence:
           storageClass: longhorn-ssd
