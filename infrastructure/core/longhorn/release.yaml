@@ -23,3 +23,5 @@ spec:
       backupTarget: s3://hyez@us-west-1/
       backupTargetCredentialSecret: longhorn-backup-auth
       pollInterval: 180
+    persistence:
+      defaultClass: false
