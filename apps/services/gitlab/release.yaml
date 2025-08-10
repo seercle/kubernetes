@@ -22,11 +22,12 @@ spec:
       shell:
         port: 44
       ingress:
+        tls:
+          external: true
         configureCertmanager: false
-        provider: nginx
         class: nginx
         annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-prod
+          cert-manager.io/cluster-issuer: letsencrypt-staging
       psql:
         host: postgresql.postgresql.svc.cluster.local
         port: 5432
