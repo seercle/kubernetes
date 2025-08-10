@@ -37,11 +37,18 @@ spec:
           key: password
     postgresql:
       install: false
+    prometheus:
+      server:
+        persistentVolume:
+          storageClass: longhorn-ssd
     gitlab:
       migrations:
         initialRootPassword:
           secret: gitlab-auth
           key: password
+      gitaly:
+        persistence:
+          storageClass: longhorn-ssd
       webservice:
         ingress:
           tls:
@@ -55,9 +62,13 @@ spec:
         tls:
           secretName: registry-tls
     minio:
+      persistence:
+        storageClass: longhorn-ssd
       ingress:
         tls:
           secretName: minio-tls
+    redis:
+      storageClass: longhorn-ssd
     installCertmanager: false
     nginx-ingress:
       enabled: false
