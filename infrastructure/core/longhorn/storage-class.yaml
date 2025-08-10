@@ -3,6 +3,8 @@ kind: StorageClass
 metadata:
   name: longhorn-ssd
   namespace: longhorn-system
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
 provisioner: driver.longhorn.io
 parameters:
   numberOfReplicas: "1"
@@ -15,7 +17,6 @@ reclaimPolicy: Retain
 volumeBindingMode: Immediate
 
 ---
-
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
