@@ -5,7 +5,7 @@ resources:
   - blocky
   - capacitor
   - dashboard
-  #- gitlab
+  - gitlab
   - harbor
   - minio
   - nextcloud
