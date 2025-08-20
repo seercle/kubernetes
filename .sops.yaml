@@ -1,7 +1,7 @@
 keys:
-  - &axel age1d2584z5sc0jkl97zfztuvfguxhmdzrqj323clzne4e533eegpfeqf0dam5
+  - &kubernetes age1vm5gjckxducd5r64sx3m7hm2uwt40xae5d5t7txmp028pgqsc3qsrtytww
 creation_rules:
   - path_regex: .*
     key_groups:
     - age:
-      - *axel
+      - *kubernetes
