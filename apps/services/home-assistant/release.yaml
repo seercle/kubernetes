@@ -25,4 +25,4 @@ spec:
       enabled: true
       forceInit: true
       trusted_proxies:
-        - 10.43.0.0/16
+        - 10.42.0.0/16
