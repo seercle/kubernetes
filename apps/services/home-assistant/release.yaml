@@ -21,3 +21,8 @@ spec:
       enabled: true
       storageClass: "longhorn-ssd"
       size: 10Gi
+    configuration:
+      enabled: true
+      forceInit: true
+      trusted_proxies:
+        - 10.43.0.0/16
