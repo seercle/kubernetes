@@ -6,9 +6,10 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/affinity: cookie
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/proxy-body-size: 10g
-    nginx.ingress.kubernetes.io/proxy-buffer-size: 250m
-    nginx.ingress.kubernetes.io/proxy-busy-buffers-size: 500m
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"  # Set to "0" to disable size limit  
+    nginx.ingress.kubernetes.io/proxy-buffer-size: "256k" # A more standard buffer size
+    nginx.ingress.kubernetes.io/proxy-busy-buffers-size: "512k" # A more standard busy buffer size
+    nginx.ingress.kubernetes.io/proxy-request-buffering: "off"  # Crucial setting to prevent disk buffering
 spec:
   ingressClassName: nginx
   tls:
