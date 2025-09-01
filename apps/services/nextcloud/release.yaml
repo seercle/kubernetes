@@ -45,4 +45,5 @@ spec:
         passwordKey: NEXTCLOUD_DATABASE_PASSWORD
         hostKey: NEXTCLOUD_DATABASE_HOST
         databaseKey: NEXTCLOUD_DATABASE_NAME
-
+    redis:
+      enabled: true
