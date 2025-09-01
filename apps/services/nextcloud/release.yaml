@@ -34,16 +34,17 @@ spec:
         storageClass: longhorn-hdd
         size: 1Ti
     internalDatabase:
-      enabled: false
-    externalDatabase:
-      type: postgresql
+      #enabled: false
       enabled: true
-      existingSecret:
-        enabled: true
-        secretName: nextcloud-database-auth
-        usernameKey: NEXTCLOUD_DATABASE_USERNAME
-        passwordKey: NEXTCLOUD_DATABASE_PASSWORD
-        hostKey: NEXTCLOUD_DATABASE_HOST
-        databaseKey: NEXTCLOUD_DATABASE_NAME
+    #externalDatabase:
+    #  type: postgresql
+    #  enabled: true
+    #  existingSecret:
+    #    enabled: true
+    #    secretName: nextcloud-database-auth
+    #    usernameKey: NEXTCLOUD_DATABASE_USERNAME
+    #    passwordKey: NEXTCLOUD_DATABASE_PASSWORD
+    #    hostKey: NEXTCLOUD_DATABASE_HOST
+    #    databaseKey: NEXTCLOUD_DATABASE_NAME
     redis:
       enabled: true
