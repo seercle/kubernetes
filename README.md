@@ -90,7 +90,10 @@ The following installation was tested on commit `ef2bd6cf9f6b700c64c262ae64694ff
 - Update the DNS records for your domain to point to the cluster's ingress IP.
 - Use the provided .sops.yaml configuration to manage secrets securely.
 - If you don't want to boostrap flux, you can:
-  - Apply `instance.yaml` in `cluster`
+  - Install flux:
+  ```bash
+  flux install
+  ```
   - Create the secret `git-auth` in `cluster/git`:
   ```bash
   sops -d secret.yaml | k apply -f -
