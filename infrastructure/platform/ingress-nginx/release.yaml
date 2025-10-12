@@ -20,5 +20,7 @@ spec:
     controller:
       service:
         type: LoadBalancer
+        ipFamilies:
+          - IPv6
       config:
         strict-validate-path-type: false
