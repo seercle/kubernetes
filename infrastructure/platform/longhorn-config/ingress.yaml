@@ -15,10 +15,6 @@ metadata:
     # custom max body size for file uploading like backing image uploading
     nginx.ingress.kubernetes.io/proxy-body-size: 10000m
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/server-snippet: |
-      location /.well-known/acme-challenge/ {
-        auth_basic off;
-      }
 spec:
   ingressClassName: nginx
   tls:

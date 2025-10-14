@@ -18,7 +18,6 @@ spec:
     tcp:
       "44": "gitlab/gitlab-gitlab-shell:44"
     controller:
-      allowSnippetAnnotations: true
       service:
         type: LoadBalancer
         ipFamilies:
