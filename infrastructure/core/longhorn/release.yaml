@@ -16,7 +16,6 @@ spec:
       interval: 10m
   values:
     defaultSettings:
-      defaultReplicaCount: 1
       defaultDataPath: /mnt/sdb1/longhorn
     persistence.defaultClassReplicaCount: 1
     defaultBackupStore:
