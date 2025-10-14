@@ -87,6 +87,7 @@ The following installation was tested on commit `ef2bd6cf9f6b700c64c262ae64694ff
 
 ## Notes
 - Ensure that the required ports are open on your firewall or router.
+- Update MetalLB configuration if your network range changes.
 - Update the DNS records for your domain to point to the cluster's ingress IP.
 - Use the provided .sops.yaml configuration to manage secrets securely.
 - If you don't want to boostrap flux, you can:
@@ -100,6 +101,10 @@ The following installation was tested on commit `ef2bd6cf9f6b700c64c262ae64694ff
   ```
   - Apply `git.yaml` in `cluster/git`
 - If a persistent volume gets `Unbound` and you want to re-use it, delete the `claimRef` inside the PV and the newly deployed pods will use it.
+- IPv6 only cluster:
+  - Change MetalLB's configmap to use IPv6 addresses
+  - Edit coredns's configmap to use dns64 plugin
+  - Install nat64 (`https://github.com/kubernetes-sigs/nat64`)
 
 ## Tips for some services
 
