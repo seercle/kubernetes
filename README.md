@@ -95,7 +95,7 @@ The following installation was tested on commit `ef2bd6cf9f6b700c64c262ae64694ff
   ```bash
   flux install
   ```
-  - Create the secret `git-auth` in `cluster/git`:
+  - Create the secret `git-auth` in `cluster/git` (Not necessary if you use public repo):
   ```bash
   sops -d secret.yaml | k apply -f -
   ```
