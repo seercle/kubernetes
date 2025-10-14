@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: longhorn-test-pvc
+  namespace: redis-ha
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: longhorn-ssd
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: longhorn-test-pod
+  namespace: redis-ha
+spec:
+  containers:
+    - name: test-container
+      image: busybox
+      command: ["sleep", "3600"]
+      volumeMounts:
+        - mountPath: "/data"
+          name: test-volume
+  volumes:
+    - name: test-volume
+      persistentVolumeClaim:
+        claimName: longhorn-test-pvc

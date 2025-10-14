@@ -23,3 +23,9 @@ spec:
       pollInterval: 180
     persistence:
       defaultClass: false
+    preUpgradeChecker:
+      upgradeVersionCheck: false
+    image:
+      longhorn:
+        manager:
+          tag: "v1.10.0-hotfix-1"
