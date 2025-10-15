@@ -7,7 +7,6 @@ resources:
   - dashboard
   - gitlab
   - harbor
-  - home-assistant
   - minio
   - nextcloud
   - vaultwarden

@@ -20,7 +20,7 @@ spec:
     database:
       type: external
       external:
-        host: postgresql.postgresql.svc.cluster.local
+        host: cnpg-cluster-rw.cnpg.svc.cluster.local
         port: 5432
         username: harbor
         coreDatabase: registry
@@ -40,7 +40,10 @@ spec:
         hosts:
           core: "harbor.seercle.com"
     redis:
-      enabled: true
+      type: "external"
+      external:
+        addr: redis-ha.redis-ha.svc.cluster.local:6379
+        existingSecret: redis-ha-auth
     persistence:
       persistentVolumeClaim:
         registry:

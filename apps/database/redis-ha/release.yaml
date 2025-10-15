@@ -23,3 +23,7 @@ spec:
     replicas: 1
     sentinel:
       quorum: 1
+    haproxy:
+      enabled: true
+      service:
+        type: LoadBalancer
