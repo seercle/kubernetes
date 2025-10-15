@@ -14,24 +14,28 @@ spec:
         app: vaultwarden
     spec:
       containers:
-      - image: vaultwarden/server:latest
-        imagePullPolicy: Always
-        name: vaultwarden
-        ports:
-        - containerPort: 80
-        env:
-        - name: SIGNUPS_ALLOWED
-          value: "false"
-        - name: ADMIN_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: vaultwarden-auth
-              key: ADMIN_TOKEN
-        volumeMounts:
-        - name: vaultwarden-data
-          mountPath: /data
-          readOnly: false
+        - image: vaultwarden/server:latest
+          imagePullPolicy: Always
+          name: vaultwarden
+          ports:
+            - containerPort: 80
+          env:
+            - name: SIGNUPS_ALLOWED
+              value: "false"
+            - name: ADMIN_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: vaultwarden-auth
+                  key: ADMIN_TOKEN
+            - name: ROCKET_ADDRESS
+              value: ::0
+            - name: WEBSOCKET_ADDRESS
+              value: ::0
+          volumeMounts:
+            - name: vaultwarden-data
+              mountPath: /data
+              readOnly: false
       volumes:
-      - name: vaultwarden-data
-        persistentVolumeClaim:
-          claimName: vaultwarden
+        - name: vaultwarden-data
+          persistentVolumeClaim:
+            claimName: vaultwarden

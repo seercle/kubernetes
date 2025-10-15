@@ -25,3 +25,16 @@ spec:
       superuserSecret: "cnpg-superuser"
       storage:
         storageClass: "longhorn-ssd"
+      services:
+        disabledDefaultServices: ["ro", "r"]
+        additional:
+          - selectorType: rw
+            serviceTemplate:
+              metadata:
+                name: "cnpg-lb"
+                labels:
+                  test-label: "true"
+                annotations:
+                  test-annotation: "true"
+              spec:
+                type: LoadBalancer

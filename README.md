@@ -112,6 +112,8 @@ The following installation was tested on commit `ef2bd6cf9f6b700c64c262ae64694ff
 
 Head to `https://vaultwarden.seercle.com/admin` and enter the admin key to create a user
 
+If you are using IPv4, remove the `ROCKET_ADDRESS` and `WEBSOCKET_ADDRESS` env variables from the deployment
+
 - ### Dashboard
 
 To retrieve the password:
