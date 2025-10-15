@@ -20,7 +20,7 @@ spec:
     database:
       type: external
       external:
-        host: cnpg-cluster-rw.cnpg.svc.cluster.local
+        host: cnpg.seercle.com
         port: 5432
         username: harbor
         coreDatabase: registry
@@ -39,11 +39,11 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt-prod"
         hosts:
           core: "harbor.seercle.com"
-    redis:
-      type: "external"
-      external:
-        addr: redis-ha.redis-ha.svc.cluster.local:6379
-        existingSecret: redis-ha-auth
+    #redis:
+    #  type: "external"
+    #  external:
+    #    addr: redis.seercle.com:6379
+    #    existingSecret: redis-ha-auth
     persistence:
       persistentVolumeClaim:
         registry:
@@ -51,7 +51,5 @@ spec:
         jobservice:
           jobLog:
             storageClass: longhorn-ssd
-        redis:
-          storageClass: longhorn-ssd
         trivy:
           storageClass: longhorn-ssd
