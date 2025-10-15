@@ -25,5 +25,6 @@ spec:
       quorum: 1
     haproxy:
       enabled: true
+      replicas: 1
       service:
         type: LoadBalancer
