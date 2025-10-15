@@ -20,3 +20,6 @@ spec:
     auth: true
     authKey: REDIS_PASSWORD
     existingSecret: redis-ha-auth
+    replicas: 1
+    sentinel:
+      quorum: 1
