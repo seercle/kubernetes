@@ -20,7 +20,7 @@ spec:
     database:
       type: external
       external:
-        host: cnpg.seercle.com
+        host: cnpg-cluster-rw.cnpg.svc.cluster.local
         port: 5432
         username: harbor
         coreDatabase: registry
@@ -42,7 +42,7 @@ spec:
     redis:
       type: "external"
       external:
-        addr: redis.seercle.com:6379
+        addr: redis-ha.redis-ha.svc.cluster.local:6379
         existingSecret: redis-ha-auth
     persistence:
       persistentVolumeClaim:
