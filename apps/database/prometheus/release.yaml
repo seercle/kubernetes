@@ -1,0 +1,41 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: prometheus
+  namespace: prometheus
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: prometheus
+      version: 27.41.0
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus
+        namespace: prometheus
+      interval: 10m
+  values:
+    server:
+      persistentVolume:
+        enabled: true
+        storageClass: "longhorn-ssd"
+      service:
+        enabled: true
+      baseURL: https://prometheus.seercle.com
+      extraFlags:
+        - web.enable-lifecycle
+        - web.enable-admin-api
+      ingress:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          nginx.ingress.kubernetes.io/auth-type: basic
+          nginx.ingress.kubernetes.io/auth-secret: prometheus-auth
+          nginx.ingress.kubernetes.io/auth-realm: "Authentication Required"
+          cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        hosts:
+          - prometheus.seercle.com
+        tls:
+          - hosts:
+              - prometheus.seercle.com
+            secretName: prometheus-tls
