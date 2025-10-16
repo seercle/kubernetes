@@ -28,3 +28,6 @@ spec:
       replicas: 1
       service:
         type: LoadBalancer
+    redis:
+      config:
+        min-replicas-to-write: 0

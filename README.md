@@ -108,6 +108,10 @@ The following installation was tested on commit `ef2bd6cf9f6b700c64c262ae64694ff
 
 ## Tips for some services
 
+- ### Authentik
+
+The initial login page is `https://authentik.seercle.com/if/flow/initial-setup/`
+
 - ### Vaultwarden
 
 Head to `https://vaultwarden.seercle.com/admin` and enter the admin key to create a user

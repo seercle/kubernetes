@@ -39,11 +39,11 @@ spec:
           cert-manager.io/cluster-issuer: "letsencrypt-prod"
         hosts:
           core: "harbor.seercle.com"
-    #redis:
-    #  type: "external"
-    #  external:
-    #    addr: redis.seercle.com:6379
-    #    existingSecret: redis-ha-auth
+    redis:
+      type: "external"
+      external:
+        addr: redis.seercle.com:6379
+        existingSecret: redis-ha-auth
     persistence:
       persistentVolumeClaim:
         registry:
