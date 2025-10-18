@@ -30,6 +30,7 @@ Below is the list of ports used by essential services on your machine:
 | NGINX Ingress    | 80, 443       | TCP      | Routes external traffic to services.     |
 | Cert-Manager     | 80, 443       | TCP      | Handles TLS certificate issuance.        |
 | Blocky           | 53, 853       | TCP/UDP  | DNS resolver with ad-blocking.           |
+| Gitea            | 22            | TCP      | Git platform                             |
 
 ## Getting Started
 
