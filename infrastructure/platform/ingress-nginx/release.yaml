@@ -15,8 +15,8 @@ spec:
         namespace: ingress-nginx
       interval: 10m
   values:
-    tcp:
-      "44": "gitlab/gitlab-gitlab-shell:44"
+    #tcp:
+    #  "44": "gitlab/gitlab-gitlab-shell:44"
     controller:
       service:
         type: LoadBalancer
