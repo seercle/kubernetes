@@ -1,0 +1,69 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gitea
+  namespace: gitea
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: gitea
+      version: 12.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: gitea
+        namespace: gitea
+      interval: 10m
+  values:
+    postgresql:
+      enabled: false
+    postgresql-ha:
+      enabled: false
+    valkey-cluster:
+      enabled: false
+    valkey:
+      enabled: true
+
+    #service:
+    #  ssh:
+    #    type: LoadBalancer
+    #    clusterIP: ""
+    #    annotations:
+    #      metallb.universe.tf/allow-shared-ip: "gitea"
+
+    gitea:
+      additionalConfigFromEnvs:
+        - name: GITEA__DATABASE__PASSWD
+          valueFrom:
+            secretKeyRef:
+              name: gitea-database-auth
+              key: password
+      admin:
+        existingSecret: gitea-auth
+      config:
+        database:
+          DB_TYPE: postgres
+          HOST: cnpg-cluster-rw.cnpg.svc.cluster.local:5432
+          NAME: gitea
+          USER: gitea
+        service:
+          DISABLE_REGISTRATION: true
+    ingress:
+      enabled: true
+      #enabled: false
+      annotations:
+        kubernetes.io/ingress.class: nginx
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+      hosts:
+        - host: gitea.seercle.com
+          paths:
+            - path: /
+              pathType: Prefix
+      tls:
+        - secretName: gitea-tls
+          hosts:
+            - gitea.seercle.com
+
+    persistence:
+      enabled: true
+      storageClass: "longhorn-ssd"

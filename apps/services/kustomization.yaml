@@ -5,7 +5,8 @@ resources:
   - blocky
   - capacitor
   - dashboard
-  - graphana
+  - gitea
+  - grafana
   - harbor
   - minio
   - nextcloud
