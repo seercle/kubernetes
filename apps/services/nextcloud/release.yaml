@@ -1,94 +1,108 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-    name: nextcloud
-    namespace: nextcloud
+  name: nextcloud
+  namespace: nextcloud
 spec:
-    interval: 10m
-    chart:
-        spec:
-            chart: nextcloud
-            version: 7.0.0
-            sourceRef:
-                kind: HelmRepository
-                name: nextcloud
-                namespace: nextcloud
-            interval: 10m
-    values:
-        #readinessProbe:
-        #  initialDelaySeconds: 240
-        #livenessProbe:
-        #  initialDelaySeconds: 240
-        nextcloud:
-            host: nextcloud.seercle.com
-            existingSecret:
-                secretName: nextcloud-auth
-                usernameKey: NEXTCLOUD_ADMIN_USERNAME
-                passwordKey: NEXTCLOUD_ADMIN_PASSWORD
-        persistence:
-            enabled: true
-            storageClass: longhorn-ssd
-            size: 10Gi
-            nextcloudData:
-                enabled: true
-                storageClass: longhorn-hdd
-                size: 1Ti
-        internalDatabase:
-            enabled: false
-            #enabled: true
-        externalDatabase:
-            type: postgresql
-            enabled: true
-            existingSecret:
-                enabled: true
-                secretName: nextcloud-database-auth
-                usernameKey: NEXTCLOUD_DATABASE_USERNAME
-                passwordKey: NEXTCLOUD_DATABASE_PASSWORD
-                hostKey: NEXTCLOUD_DATABASE_HOST
-                databaseKey: NEXTCLOUD_DATABASE_NAME
-        redis:
-            enabled: false
-        phpClientHttpsFix:
-            enabled: true
-        ingress:
-            enabled: true
-            className: nginx
-            tls:
-                - secretName: nextcloud-tls
-                  hosts:
-                      - nextcloud.seercle.com
-            annotations:
-                nginx.ingress.kubernetes.io/affinity: cookie
-                cert-manager.io/cluster-issuer: "letsencrypt-prod"
-                nginx.ingress.kubernetes.io/proxy-body-size: "0"
-                nginx.ingress.kubernetes.io/proxy-buffer-size: "256k"
-                nginx.ingress.kubernetes.io/proxy-busy-buffers-size: "512k"
-                nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
-                nginx.ingress.kubernetes.io/enable-cors: "true"
-                nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For, X-Forwarded-Proto, X-Real-IP"
-                nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-                nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
-                nginx.ingress.kubernetes.io/server-snippet: |-
-                    server_tokens off;
-                    proxy_hide_header X-Powered-By;
-                    rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
-                    rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
-                    rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
-                    rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
-                    location = /.well-known/carddav {
-                      return 301 $scheme://$host/remote.php/dav;
-                    }
-                    location = /.well-known/caldav {
-                      return 301 $scheme://$host/remote.php/dav;
-                    }
-                    location = /robots.txt {
-                      allow all;
-                      log_not_found off;
-                      access_log off;
-                    }
-                    location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
-                      deny all;
-                    }
-                    location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
-                      deny all;
-                    }
+  interval: 10m
+  chart:
+    spec:
+      chart: nextcloud
+      version: 7.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: nextcloud
+        namespace: nextcloud
+      interval: 10m
+  values:
+    #readinessProbe:
+    #  initialDelaySeconds: 240
+    #livenessProbe:
+    #  initialDelaySeconds: 240
+    nextcloud:
+      host: nextcloud.seercle.com
+      existingSecret:
+        secretName: nextcloud-auth
+        usernameKey: NEXTCLOUD_ADMIN_USERNAME
+        passwordKey: NEXTCLOUD_ADMIN_PASSWORD
+      configs:
+        custom.config.php: |-
+          <?php
+          $CONFIG = array (
+            'log_type' => 'file',
+            'logfile' => 'nextcloud.log',
+            'loglevel' => 0,
+            'logdateformat' => 'F d, Y H:i:s',
+            'trusted_proxies' => ['fd00:70:80::/104'],
+            'overwriteprotocol' => 'https',
+          );
+    persistence:
+      enabled: true
+      storageClass: longhorn-ssd
+      size: 10Gi
+      nextcloudData:
+        enabled: true
+        storageClass: longhorn-hdd
+        size: 1Ti
+    internalDatabase:
+      enabled: false
+      #enabled: true
+    externalDatabase:
+      type: postgresql
+      enabled: true
+      existingSecret:
+        enabled: true
+        secretName: nextcloud-database-auth
+        usernameKey: NEXTCLOUD_DATABASE_USERNAME
+        passwordKey: NEXTCLOUD_DATABASE_PASSWORD
+        hostKey: NEXTCLOUD_DATABASE_HOST
+        databaseKey: NEXTCLOUD_DATABASE_NAME
+    redis:
+      enabled: false
+    phpClientHttpsFix:
+      enabled: true
+    ingress:
+      enabled: true
+      className: nginx
+      tls:
+        - secretName: nextcloud-tls
+          hosts:
+            - nextcloud.seercle.com
+      annotations:
+        nginx.ingress.kubernetes.io/affinity: cookie
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+        nginx.ingress.kubernetes.io/proxy-body-size: "0"
+        nginx.ingress.kubernetes.io/proxy-buffer-size: "256k"
+        nginx.ingress.kubernetes.io/proxy-busy-buffers-size: "512k"
+        nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+        nginx.ingress.kubernetes.io/enable-cors: "true"
+        nginx.ingress.kubernetes.io/cors-allow-headers: "X-Forwarded-For, X-Forwarded-Proto, X-Real-IP"
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+        nginx.ingress.kubernetes.io/server-snippet: |-
+          server_tokens off;
+          proxy_hide_header X-Powered-By;
+          rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
+          rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
+          rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+          rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
+          location = /.well-known/carddav {
+            return 301 $scheme://$host/remote.php/dav;
+          }
+          location = /.well-known/caldav {
+            return 301 $scheme://$host/remote.php/dav;
+          }
+          location ^~ /.well-known {
+            return 301 $scheme://$host/index.php$uri;
+          }
+          location = /robots.txt {
+            allow all;
+            log_not_found off;
+            access_log off;
+          }
+          location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
+            deny all;
+          }
+          location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+            deny all;
+          }
