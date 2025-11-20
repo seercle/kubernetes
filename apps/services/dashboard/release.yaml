@@ -14,3 +14,8 @@ spec:
         name: kubernetes-dashboard
         namespace: kubernetes-dashboard
       interval: 10m
+  values:
+    kong:
+      image:
+        tag: 3.9.0
+        repository: docker.io/library/kong
