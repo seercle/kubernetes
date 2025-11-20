@@ -2,6 +2,8 @@
 
 This repository contains the configuration files for a Kubernetes-based homelab environment. It uses [FluxCD](https://fluxcd.io/) for GitOps-based deployment and management of applications and infrastructure. The setup includes various applications and services, such as Nextcloud, PostgreSQL, Redis, MinIO, Vaultwarden, and more, along with supporting infrastructure like Longhorn, MetalLB, and Ingress-NGINX.
 
+This configuration expects `coredns` to be preinstalled
+
 ## Overview
 
 The repository is structured as follows:
