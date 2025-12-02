@@ -1,0 +1,47 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: jellyfin
+  namespace: servarr
+spec:
+  interval: 1m
+  url: https://jellyfin.github.io/jellyfin-helm
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: jellyfin
+  namespace: servarr
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: jellyfin
+      version: 2.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: jellyfin
+        namespace: servarr
+      interval: 10m
+  values:
+    ingress:
+      className: nginx
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - host: jellyfin.seercle.com
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls:
+        - secretName: jellyfin-tls
+          hosts:
+            - jellyfin.seercle.com
+    persistence:
+      config:
+        enabled: true
+        storageClass: longhorn-ssd
+      media:
+        enabled: true
+        storageClass: longhorn-ssd
