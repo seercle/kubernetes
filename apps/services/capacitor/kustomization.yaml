@@ -3,7 +3,6 @@ kind: Kustomization
 namespace: capacitor
 resources:
   - namespace.yaml
-  - secret.yaml
   - deployment.yaml
   - service.yaml
   - ingress.yaml

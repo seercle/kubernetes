@@ -6,4 +6,3 @@ resources:
   - repository.yaml
   - release.yaml
   - user.yaml
-  - ingress.yaml

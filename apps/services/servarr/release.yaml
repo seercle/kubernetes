@@ -1,0 +1,354 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: servarr
+  namespace: servarr
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: servarr
+      version: 1.2.2
+      sourceRef:
+        kind: HelmRepository
+        name: servarr
+        namespace: servarr
+      interval: 10m
+  values:
+    jellyfin:
+      enabled: false
+
+    sonarr:
+      ingress:
+        enabled: true
+        className: nginx
+        hosts:
+          - host: sonarr.seercle.com
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        tls:
+          - secretName: sonarr-tls
+            hosts:
+              - sonarr.seercle.com
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          nginx.ingress.kubernetes.io/auth-url: |-
+            http://ak-outpost-authentik-embedded-outpost.authentik.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+          nginx.ingress.kubernetes.io/auth-signin: |-
+            https://authentik.seercle.com/outpost.goauthentik.io/start?rd=$scheme://$http_host$escaped_request_uri
+          nginx.ingress.kubernetes.io/auth-response-headers: |-
+            Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-entitlements,X-authentik-email,X-authentik-name,X-authentik-uid
+          nginx.ingress.kubernetes.io/auth-snippet: |
+            proxy_set_header X-Forwarded-Host $http_host;
+      persistence:
+        storageClass: longhorn-ssd
+        additionalVolumes:
+          - name: media-storage
+            persistentVolumeClaim:
+              claimName: arr-media
+        additionalMounts:
+          - name: media-storage
+            mountPath: /data
+
+    qbittorrent:
+      ingress:
+        enabled: true
+        className: nginx
+        hosts:
+          - host: qbittorrent.seercle.com
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        tls:
+          - secretName: qbittorrent-tls
+            hosts:
+              - qbittorrent.seercle.com
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          nginx.ingress.kubernetes.io/auth-url: |-
+            http://ak-outpost-authentik-embedded-outpost.authentik.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+          nginx.ingress.kubernetes.io/auth-signin: |-
+            https://authentik.seercle.com/outpost.goauthentik.io/start?rd=$scheme://$http_host$escaped_request_uri
+          nginx.ingress.kubernetes.io/auth-response-headers: |-
+            Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-entitlements,X-authentik-email,X-authentik-name,X-authentik-uid
+          nginx.ingress.kubernetes.io/auth-snippet: |
+            proxy_set_header X-Forwarded-Host $http_host;
+      persistence:
+        storageClass: longhorn-ssd
+        additionalVolumes:
+          - name: media-storage
+            persistentVolumeClaim:
+              claimName: arr-media
+          - name: warp-conf-vol
+            secret:
+              secretName: warp-conf
+        additionalMounts:
+          - name: media-storage
+            mountPath: /data
+
+    prowlarr:
+      ingress:
+        enabled: true
+        className: nginx
+        hosts:
+          - host: prowlarr.seercle.com
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        tls:
+          - secretName: prowlarr-tls
+            hosts:
+              - prowlarr.seercle.com
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          nginx.ingress.kubernetes.io/auth-url: |-
+            http://ak-outpost-authentik-embedded-outpost.authentik.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+          nginx.ingress.kubernetes.io/auth-signin: |-
+            https://authentik.seercle.com/outpost.goauthentik.io/start?rd=$scheme://$http_host$escaped_request_uri
+          nginx.ingress.kubernetes.io/auth-response-headers: |-
+            Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-entitlements,X-authentik-email,X-authentik-name,X-authentik-uid
+          nginx.ingress.kubernetes.io/auth-snippet: |
+            proxy_set_header X-Forwarded-Host $http_host;
+      persistence:
+        storageClass: longhorn-ssd
+
+    flaresolverr:
+      enabled: false
+
+    jellyseerr:
+      ingress:
+        enabled: true
+        className: nginx
+        hosts:
+          - host: jellyseerr.seercle.com
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        tls:
+          - secretName: jellyseerr-tls
+            hosts:
+              - jellyseerr.seercle.com
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+      persistence:
+        storageClass: longhorn-ssd
+
+    bazarr:
+      ingress:
+        enabled: true
+        className: nginx
+        hosts:
+          - host: bazarr.seercle.com
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        tls:
+          - secretName: bazarr-tls
+            hosts:
+              - bazarr.seercle.com
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          nginx.ingress.kubernetes.io/auth-url: |-
+            http://ak-outpost-authentik-embedded-outpost.authentik.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+          nginx.ingress.kubernetes.io/auth-signin: |-
+            https://authentik.seercle.com/outpost.goauthentik.io/start?rd=$scheme://$http_host$escaped_request_uri
+          nginx.ingress.kubernetes.io/auth-response-headers: |-
+            Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-entitlements,X-authentik-email,X-authentik-name,X-authentik-uid
+          nginx.ingress.kubernetes.io/auth-snippet: |
+            proxy_set_header X-Forwarded-Host $http_host;
+      persistence:
+        storageClass: longhorn-ssd
+        additionalVolumes:
+          - name: media-storage
+            persistentVolumeClaim:
+              claimName: arr-media
+        additionalMounts:
+          - name: media-storage
+            mountPath: /data
+
+    radarr:
+      ingress:
+        enabled: true
+        className: nginx
+        hosts:
+          - host: radarr.seercle.com
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        tls:
+          - secretName: radarr-tls
+            hosts:
+              - radarr.seercle.com
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          nginx.ingress.kubernetes.io/auth-url: |-
+            http://ak-outpost-authentik-embedded-outpost.authentik.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+          nginx.ingress.kubernetes.io/auth-signin: |-
+            https://authentik.seercle.com/outpost.goauthentik.io/start?rd=$scheme://$http_host$escaped_request_uri
+          nginx.ingress.kubernetes.io/auth-response-headers: |-
+            Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-entitlements,X-authentik-email,X-authentik-name,X-authentik-uid
+          nginx.ingress.kubernetes.io/auth-snippet: |
+            proxy_set_header X-Forwarded-Host $http_host;
+      persistence:
+        storageClass: longhorn-ssd
+        additionalVolumes:
+          - name: media-storage
+            persistentVolumeClaim:
+              claimName: arr-media
+        additionalMounts:
+          - name: media-storage
+            mountPath: /data
+
+    lidarr:
+      ingress:
+        enabled: true
+        className: nginx
+        hosts:
+          - host: lidarr.seercle.com
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        tls:
+          - secretName: lidarr-tls
+            hosts:
+              - lidarr.seercle.com
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          nginx.ingress.kubernetes.io/auth-url: |-
+            http://ak-outpost-authentik-embedded-outpost.authentik.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+          nginx.ingress.kubernetes.io/auth-signin: |-
+            https://authentik.seercle.com/outpost.goauthentik.io/start?rd=$scheme://$http_host$escaped_request_uri
+          nginx.ingress.kubernetes.io/auth-response-headers: |-
+            Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-entitlements,X-authentik-email,X-authentik-name,X-authentik-uid
+          nginx.ingress.kubernetes.io/auth-snippet: |
+            proxy_set_header X-Forwarded-Host $http_host;
+      persistence:
+        storageClass: longhorn-ssd
+        additionalVolumes:
+          - name: media-storage
+            persistentVolumeClaim:
+              claimName: arr-media
+        additionalMounts:
+          - name: media-storage
+            mountPath: /data
+
+    cleanuparr:
+      enabled: true
+      ingress:
+        enabled: true
+        className: nginx
+        hosts:
+          - host: cleanuparr.seercle.com
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        tls:
+          - secretName: cleanuparr-tls
+            hosts:
+              - cleanuparr.seercle.com
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          nginx.ingress.kubernetes.io/auth-url: |-
+            http://ak-outpost-authentik-embedded-outpost.authentik.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+          nginx.ingress.kubernetes.io/auth-signin: |-
+            https://authentik.seercle.com/outpost.goauthentik.io/start?rd=$scheme://$http_host$escaped_request_uri
+          nginx.ingress.kubernetes.io/auth-response-headers: |-
+            Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-entitlements,X-authentik-email,X-authentik-name,X-authentik-uid
+          nginx.ingress.kubernetes.io/auth-snippet: |
+            proxy_set_header X-Forwarded-Host $http_host;
+      persistence:
+        enabled: true
+        storageClass: longhorn-ssd
+
+  postRenderers:
+    - kustomize:
+        patches:
+          - target:
+              kind: Deployment
+              name: "servarr-qbittorrent" # Check this matches: kubectl get deploy -n servarr
+            patch: |
+              - op: add
+                path: /spec/template/spec/containers/-
+                value:
+                  name: wireguard
+                  image: lscr.io/linuxserver/wireguard:latest
+                  imagePullPolicy: IfNotPresent
+                  securityContext:
+                    privileged: true
+                  env:
+                    - name: TZ
+                      value: "Europe/London"
+                    - name: KILL_PROCESS_TIMEOUT
+                      value: "300"
+                  volumeMounts:
+                    - name: warp-conf-vol
+                      mountPath: /config/wg0.conf
+                      subPath: wg0.conf
+                      readOnly: true
+
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: emby
+  namespace: servarr
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: emby
+      version: 1.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: emby
+        namespace: servarr
+      interval: 10m
+  values:
+    ingress:
+      enabled: true
+      className: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - host: emby.seercle.com
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls:
+        - secretName: emby-tls
+          hosts:
+            - emby.seercle.com
+
+    persistence:
+      enabled: true
+      storageClass: longhorn-ssd
+
+    additionalVolumes:
+      - name: media-storage
+        persistentVolumeClaim:
+          claimName: arr-media
+
+    additionalVolumeMounts:
+      - name: media-storage
+        mountPath: /data
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: flaresolverr
+  namespace: servarr
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: flaresolverr
+      version: 6.0.3
+      sourceRef:
+        kind: HelmRepository
+        name: flaresolverr
+        namespace: servarr
+      interval: 10m
+  values:
+    env:
+      HOST: "::"

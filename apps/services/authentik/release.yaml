@@ -60,4 +60,15 @@ spec:
               key: AUTHENTIK_SECRET_KEY
     server:
       ingress:
-        enabled: false
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+        https: true
+        tls:
+          - hosts:
+              - authentik.seercle.com
+            secretName: authentik-tls
+        hosts:
+          - authentik.seercle.com

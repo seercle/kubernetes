@@ -15,6 +15,17 @@ spec:
         namespace: kubernetes-dashboard
       interval: 10m
   values:
+    app:
+      ingress:
+        enabled: true
+        issuer:
+          name: letsencrypt-prod
+          scope: cluster
+        hosts:
+          - dashboard.seercle.com
+        ingressClassName: nginx
+        tls:
+          secretName: kubernetes-dashboard-tls
     kong:
       image:
         tag: 3.9.0
