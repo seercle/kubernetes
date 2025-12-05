@@ -265,10 +265,15 @@ The TLS certificate has an expiration date; remember to update it periodically.
         Repeat for Sonarr.
     *   **Languages**:
         Go to **Settings → Languages**.
+        Add the languages you want subtitles for in `Language Filter`
         Create a "**Profile**" (e.g., "**English**") and select your desired subtitle languages.
+        Add this profile as default for both movies and TV Shows at the bottom of the page.
+    *   **Subtitle Providers**:
+        Go to **Settings → Providers**.
+       Configure your desired subtitle providers (e.g., OpenSubtitles, YIFY, etc.) with your credentials if needed.
 
 10. **Configure Cleanuparr (Maintenance)**:
-    In Cleanuparr settings, add your instances for **Radarr**, **Sonarr**, and **qBittorrent**.
+    In Cleanuparr settings, add your instances for **Radarr**, **Sonarr**, **Lidarr** and **qBittorrent**.
 
 11. **Connect to Emby**:
     In Emby, add one or two libraries for Movies and TV Shows with the paths `/data/movies` and `/data/tv`.
