@@ -5,7 +5,7 @@ metadata:
   namespace: servarr
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   storageClassName: longhorn-hdd
   resources:
     requests:
