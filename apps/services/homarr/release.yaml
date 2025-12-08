@@ -1,0 +1,40 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: homarr
+  namespace: homarr
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: homarr
+      version: 8.4.3
+      sourceRef:
+        kind: HelmRepository
+        name: homarr
+        namespace: homarr
+      interval: 10m
+  values:
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+        nginx.ingress.kubernetes.io/auth-url: |-
+          http://ak-outpost-authentik-embedded-outpost.authentik.svc.cluster.local:9000/outpost.goauthentik.io/auth/nginx
+        nginx.ingress.kubernetes.io/auth-signin: |-
+          https://authentik.seercle.com/outpost.goauthentik.io/start?rd=$scheme://$http_host$escaped_request_uri
+        nginx.ingress.kubernetes.io/auth-response-headers: |-
+          Set-Cookie,X-authentik-username,X-authentik-groups,X-authentik-entitlements,X-authentik-email,X-authentik-name,X-authentik-uid
+        nginx.ingress.kubernetes.io/auth-snippet: |
+          proxy_set_header X-Forwarded-Host $http_host;
+      tls:
+        - secretName: homarr-tls
+          hosts:
+            - homarr.seercle.com
+      hosts:
+        - host: homarr.seercle.com
+          paths:
+            - path: /
+    database:
+      type: postgresql

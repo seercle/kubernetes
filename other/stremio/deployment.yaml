@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stremio
+  namespace: stremio
+spec:
+  selector:
+    matchLabels:
+      app: stremio
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: stremio
+    spec:
+      containers:
+        - image: stremio/server:latest
+          name: stremio
+        - name: wireguard
+          image: lscr.io/linuxserver/wireguard:latest
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: true
+          env:
+            - name: TZ
+              value: "Europe/London"
+            - name: KILL_PROCESS_TIMEOUT
+              value: "300"
+          volumeMounts:
+            - name: warp-conf-vol
+              mountPath: /config/wg0.conf
+              subPath: wg0.conf
+              readOnly: true
+        - name: ipv6-flush
+          image: busybox
+          securityContext:
+            privileged: true
+          command:
+            - /bin/sh
+            - -c
+            - |
+              while ! ip link show wg0 > /dev/null 2>&1; do
+                echo "Waiting for wg0 interface to be ready..."
+                sleep 1
+              done
+              echo "wg0 interface is ready. Proceeding with IPv6 flush."
+              # Flush IPv6 addresses from the wg0 interface
+              ip -6 addr flush dev wg0
+              echo "IPv6 addresses flushed from wg0 interface."
+              # Keep the container running
+              tail -f /dev/null
+      volumes:
+        - name: warp-conf-vol
+          secret:
+            secretName: warp-conf

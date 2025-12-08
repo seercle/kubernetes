@@ -8,6 +8,7 @@ resources:
   - gitea
   - grafana
   - harbor
+  - homarr
   - nextcloud
   - servarr
   - vaultwarden
