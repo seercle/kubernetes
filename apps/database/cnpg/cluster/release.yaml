@@ -24,6 +24,7 @@ spec:
       enableSuperuserAccess: true
       superuserSecret: "cnpg-superuser"
       storage:
+        size: "10Gi"
         storageClass: "longhorn-ssd"
       services:
         disabledDefaultServices: ["ro", "r"]

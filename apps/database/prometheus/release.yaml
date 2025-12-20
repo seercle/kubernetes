@@ -18,6 +18,7 @@ spec:
     server:
       persistentVolume:
         enabled: true
+        size: 50Gi
         storageClass: "longhorn-ssd"
       service:
         enabled: true
