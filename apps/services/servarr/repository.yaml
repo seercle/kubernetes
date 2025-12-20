@@ -10,15 +10,6 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: emby
-  namespace: servarr
-spec:
-  interval: 1m
-  url: https://pmoscode-helm.github.io/emby/
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
   name: flaresolverr
   namespace: servarr
 spec:

@@ -270,14 +270,17 @@ The TLS certificate has an expiration date; remember to update it periodically.
         Add this profile as default for both movies and TV Shows at the bottom of the page.
     *   **Subtitle Providers**:
         Go to **Settings → Providers**.
-       Configure your desired subtitle providers (e.g., OpenSubtitles, YIFY, etc.) with your credentials if needed.
+        Configure your desired subtitle providers (e.g., OpenSubtitles, YIFY, etc.) with your credentials if needed.
 
 10. **Configure Cleanuparr (Maintenance)**:
     In Cleanuparr settings, add your instances for **Radarr**, **Sonarr**, **Lidarr** and **qBittorrent**.
 
-11. **Connect to Emby**:
-    In Emby, add one or two libraries for Movies and TV Shows with the paths `/data/movies` and `/data/tv`.
+11. **Connect to Jellyfin**:
+    *   Create [`network.xml`](https://github.com/jellyfin/jellyfin/issues/13930#issuecomment-3676283225) inside the `/config` directory
+    *   Restart the pod to enable IPv6
+    *   In Jellyfin, add one/multiple libraries for Movies, TV Shows, Music with the paths `/data/...`.
 
 12. **Connect to Jellyseer**:
-    In Jellyseer, go to **Settings → Services**.
-    Add **Radarr** and **Sonarr** with their respective addresses and API keys.
+    *   Connect to Jellyfin first.
+    *   In Jellyseer, go to **Settings → Services**.
+        Add **Radarr** and **Sonarr** with their respective addresses and API keys.

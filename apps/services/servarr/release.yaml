@@ -16,7 +16,27 @@ spec:
       interval: 10m
   values:
     jellyfin:
-      enabled: false
+      enabled: true
+      ingress:
+        enabled: true
+        hosts:
+          - jellyfin.seercle.com
+        tls:
+          - secretName: jellyfin-tls
+            hosts:
+              - jellyfin.seercle.com
+        annotations:
+          kubernetes.io/ingress.class: nginx
+          cert-manager.io/cluster-issuer: letsencrypt-prod
+      persistence:
+        config:
+          storageClass: longhorn-ssd
+        media:
+          enabled: false
+        extraExistingClaimMounts:
+          - name: media-storage
+            mountPath: /data
+            existingClaim: arr-media
 
     sonarr:
       ingress:
@@ -287,51 +307,6 @@ spec:
                       subPath: wg0.conf
                       readOnly: true
 
----
-apiVersion: helm.toolkit.fluxcd.io/v2
-kind: HelmRelease
-metadata:
-  name: emby
-  namespace: servarr
-spec:
-  interval: 10m
-  chart:
-    spec:
-      chart: emby
-      version: 1.4.0
-      sourceRef:
-        kind: HelmRepository
-        name: emby
-        namespace: servarr
-      interval: 10m
-  values:
-    ingress:
-      enabled: true
-      className: nginx
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-      hosts:
-        - host: emby.seercle.com
-          paths:
-            - path: /
-              pathType: ImplementationSpecific
-      tls:
-        - secretName: emby-tls
-          hosts:
-            - emby.seercle.com
-
-    persistence:
-      enabled: true
-      storageClass: longhorn-ssd
-
-    additionalVolumes:
-      - name: media-storage
-        persistentVolumeClaim:
-          claimName: arr-media
-
-    additionalVolumeMounts:
-      - name: media-storage
-        mountPath: /data
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease

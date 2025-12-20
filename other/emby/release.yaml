@@ -1,0 +1,45 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: emby
+  namespace: servarr
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: emby
+      version: 1.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: emby
+        namespace: servarr
+      interval: 10m
+  values:
+    ingress:
+      enabled: true
+      className: nginx
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - host: emby.seercle.com
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls:
+        - secretName: emby-tls
+          hosts:
+            - emby.seercle.com
+
+    persistence:
+      enabled: true
+      storageClass: longhorn-ssd
+
+    additionalVolumes:
+      - name: media-storage
+        persistentVolumeClaim:
+          claimName: arr-media
+
+    additionalVolumeMounts:
+      - name: media-storage
+        mountPath: /data
